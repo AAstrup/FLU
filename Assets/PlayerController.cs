@@ -1,26 +1,52 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterController : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
     Rigidbody2D rb;
+    
+    Animator anim;
+    bool isWalking;
+
+    public float JumpHeight;
     public float Speed;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        isWalking = false;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+
         float currentY = rb.velocity.y;
 
         //Horizontal movement
-        float moveHorizontal = (Input.GetAxis("Horizontal"));
+        float moveHorizontal = Input.GetAxis("Horizontal");
+
+        if (moveHorizontal != 0)
+        {
+            isWalking = true;
+            anim.SetBool("IsWalking", true);
+        } else
+        {
+            isWalking = false;
+            anim.SetBool("IsWalking", false);
+        }
+        
         rb.velocity = new Vector2(moveHorizontal * Speed, currentY);
+
+        //Jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            float currentX = rb.velocity.x;
+            rb.velocity = new Vector2(currentX, JumpHeight);
+        }
 
         //Flip        
         if (rb.velocity.x > 0)
