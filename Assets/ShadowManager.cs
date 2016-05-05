@@ -24,12 +24,9 @@ public class ShadowManager : MonoBehaviour {
     {
         if (!midDicovered && Player.transform.position.y > MidLine.transform.position.y)
         {
-            print("DISCOVER" +Time.time);
             midDicovered = true;
             StartCoroutine("Discover", MidShadow);
         }
-//        print("midDicovered " + midDicovered);
-//        print("Player.transform.position.y "+ Player.transform.position.y+ " vs.  MidLine.transform.position.y " + MidLine.transform.position.y);
         if (!topDicovered && Player.transform.position.y > TopLine.transform.position.y)
         {
             topDicovered = true;
@@ -39,7 +36,6 @@ public class ShadowManager : MonoBehaviour {
 
     IEnumerator Discover (SpriteRenderer shadow)
     {
-        print("Triggered");
         float alpha = 1f;
         while(alpha > 0f)
         {

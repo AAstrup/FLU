@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
+    public static PlayerController instance;
+    void Awake() { instance = this; }
 
     Rigidbody2D rb;
     
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (Input.GetKeyDown("q"))
+            ButtonPressed();
 
         float currentY = rb.velocity.y;
 
@@ -61,5 +65,10 @@ public class PlayerController : MonoBehaviour {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*-1, transform.localScale.y, transform.localScale.z);
             
         }
+    }
+
+    void ButtonPressed()
+    {
+        DialogeSystem.instance.PlayerInput();
     }
 }
