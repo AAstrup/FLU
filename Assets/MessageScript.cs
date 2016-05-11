@@ -15,7 +15,7 @@ public class MessageScript : MonoBehaviour {
         var gmj = Instantiate(prefab, transform.position + new Vector3(textBoxOffset.x, textBoxOffset.y,0f), Quaternion.identity) as GameObject;
         gmj.transform.SetParent(GameObject.Find("GUI_Overlay").transform);
         textBox = gmj.GetComponent<TextBoxScript>();
-        DialogeSystem.instance.Register(this);
+        DialogSystem.instance.Register(this);
     }
 
     public void Activate(int currentMessage)

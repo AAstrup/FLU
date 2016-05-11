@@ -69,6 +69,6 @@ public class PlayerController : MonoBehaviour {
 
     void ButtonPressed()
     {
-        DialogeSystem.instance.PlayerInput();
+        DialogSystem.instance.PlayerInput();
     }
 }

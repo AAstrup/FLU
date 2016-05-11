@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System;
 
-public class DialogeSystem : MonoBehaviour {
-    public static DialogeSystem instance;
+public class DialogSystem : MonoBehaviour {
+    public static DialogSystem instance;
     void Awake() { instance = this; }
 
     int currentMessage = 0;
