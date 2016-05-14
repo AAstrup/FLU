@@ -4,8 +4,8 @@ timeCreated: 1463222824
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 3
-  fontSize: 16
-  forceTextureCase: -2
+  fontSize: 220
+  forceTextureCase: -1
   characterSpacing: 1
   characterPadding: 0
   includeFontData: 1

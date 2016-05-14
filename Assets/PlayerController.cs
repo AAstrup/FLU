@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
     void Awake() { instance = this; }
 
     Rigidbody2D rb;
-    
+
     Animator anim;
     bool isWalking;
     bool isFlying;
@@ -94,17 +94,10 @@ public class PlayerController : MonoBehaviour {
         if (moveHorizontal != 0)
         {
             isFlying = true;
-            //anim.SetBool("IsFlying", true); Animation does not exsist yet
-
             if (moveHorizontal > 0)
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             else if (moveHorizontal < 0)
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
-        }
-        else
-        {
-            isFlying = false;
-            //anim.SetBool("IsFlying", false); Animation does not exsist yet
         }
 
         rb.velocity = new Vector2(flyHorizontalSpeed*moveHorizontal, rb.velocity.y);
@@ -145,11 +138,15 @@ public class PlayerController : MonoBehaviour {
     {
         if (currentMovementState == movementState.walking)
         {
+            anim.ResetTrigger("UnequipJetPack");
+            anim.SetTrigger("EquipJetPack");
             currentMovementState = movementState.flying;
             CameraScript.instance.ChangeToMapView();
         }
         else if (currentMovementState == movementState.flying)
         {
+            anim.ResetTrigger("EquipJetPack");
+            anim.SetTrigger("UnequipJetPack");
             currentMovementState = movementState.walking;
             CameraScript.instance.ChangeToLevelView(transform.position.y);
         }

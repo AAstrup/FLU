@@ -16,6 +16,7 @@ public class CameraScript : MonoBehaviour
     Dictionary<levelYPos, float> levelToCameraYPos = new Dictionary<levelYPos, float>();
     Camera cam;
     List<KeyValuePair<float, levelYPos>> LineYPos = new List<KeyValuePair<float, levelYPos>>();
+    levelYPos lastLevelPlayerWasAt = levelYPos.Bot;
 
     void Start()
     {
@@ -34,7 +35,7 @@ public class CameraScript : MonoBehaviour
     public Vector3 CustomUpdate()
     {
         if (viewState == state.LevelView)
-            return new Vector3(PlayerController.instance.transform.position.x, transform.position.y, transform.position.z);
+            return new Vector3(PlayerController.instance.transform.position.x, levelToCameraYPos[lastLevelPlayerWasAt], transform.position.z);
         else
             return new Vector3(-3.5f, 0f, transform.position.z);
     }
@@ -55,6 +56,7 @@ public class CameraScript : MonoBehaviour
             else
                 break;
         }
+        lastLevelPlayerWasAt = level;
         ChangeToLevelView(level);
     }
     public void ChangeToLevelView(levelYPos _level)

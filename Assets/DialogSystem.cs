@@ -47,8 +47,7 @@ public class DialogSystem : MonoBehaviour {
         {
             if (Vector2.Distance(msg.transform.position, PlayerController.instance.transform.position) < dialogeRange)
             {
-                if(currentMessage >= 0)
-                    msg.Appear(currentMessage);
+                msg.Appear(currentMessage);
                 dialogActive = true;
             }
             else
@@ -71,10 +70,12 @@ public class DialogSetUpData
     public Font _font;
     public Color _fontColor;
     public Sprite _textBoxSprite;
-    public DialogSetUpData(Font font,Sprite textBoxSprite,Color fontColor)
+    public Sprite _textBoxTriggerSprite;
+    public DialogSetUpData(Font font,Sprite textBoxSprite,Color fontColor,Sprite textBoxTriggerSprite)
     {
         _font = font;
         _textBoxSprite = textBoxSprite;
         _fontColor = fontColor;
+        _textBoxTriggerSprite = textBoxTriggerSprite;
     }
 }

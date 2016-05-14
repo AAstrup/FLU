@@ -3,11 +3,17 @@ using System.Collections;
 using System;
 
 public class ScreenShake : MonoBehaviour {
+    public static ScreenShake instance;
+    void Awake()
+    {
+        instance = this;
+    }
 
-    CameraScript cam;
-    Vector3 cameraShake = new Vector3(0,0,0);
-    float currentShakeValue = 0f;
-    float maxShake = 2f;
+        CameraScript cam;
+    float currentShakeTimeLeft = 0f;
+    public float shakeAmount = 0.25f;
+    public float maxShakeTime = 2f;
+    float lastShakeTime = -9f;
 	// Use this for initialization
 	void Start () {
         cam = transform.GetComponent<CameraScript>();
@@ -22,9 +28,26 @@ public class ScreenShake : MonoBehaviour {
         finalPos += GetShakeValue();
         transform.position = finalPos;
     }
+    //Called by the drill
+    public void Shake()
+    {
+        currentShakeTimeLeft = maxShakeTime;
+    }
 
     private Vector3 GetShakeValue()
     {
-        throw new NotImplementedException();
+        currentShakeTimeLeft -= Time.deltaTime;
+        if (currentShakeTimeLeft < 0)
+            currentShakeTimeLeft = 0;
+        return new Vector3(currentShakeTimeLeft * shakeAmount * random1(), currentShakeTimeLeft* shakeAmount * random1(), 0);
+    }
+
+    private float random1()
+    {
+        var chance = UnityEngine.Random.Range(0, 100f);
+        if (chance > 50f)
+            return -1f;
+        else
+            return 1f;
     }
 }
