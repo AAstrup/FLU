@@ -9,13 +9,16 @@ public class MessageScript : MonoBehaviour {
     public GameObject prefab;
     TextBoxScript textBox;
     public Vector2 textBoxOffset;
+    Font _textBoxFont;
 
     void Start()
     {
         var gmj = Instantiate(prefab, transform.position + new Vector3(textBoxOffset.x, textBoxOffset.y,0f), Quaternion.identity) as GameObject;
         gmj.transform.SetParent(GameObject.Find("GUI_Overlay").transform);
         textBox = gmj.GetComponent<TextBoxScript>();
-        DialogSystem.instance.Register(this);
+
+        var dialogSetUpData = DialogSystem.instance.Register(this);
+        textBox.SetUp(dialogSetUpData._font);
     }
 
     public void Activate(int currentMessage)

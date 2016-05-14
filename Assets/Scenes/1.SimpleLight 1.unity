@@ -1890,6 +1890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f07c11078b36c409e11971d60347c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textBoxFont: {fileID: 12800000, guid: dc3f9d4eb8439ad4eb3bda2f43e5af59, type: 3}
   dialogeRange: 1
 --- !u!4 &1469572243
 Transform:

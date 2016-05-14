@@ -6,13 +6,25 @@ public class DialogSystem : MonoBehaviour {
     public static DialogSystem instance;
     void Awake() { instance = this; }
 
+    public Font textBoxFont;
     int currentMessage = 0;
     public float dialogeRange = 1f;
     List<MessageScript> list = new List<MessageScript>();
+    DialogSetUpData setUpData;
 
-    public void Register(MessageScript script)
+    void Start()
+    {
+        setUpData = new DialogSetUpData(textBoxFont);
+    }
+
+    /// <summary>
+    /// Register a script, and returns nessary data to set it up
+    /// </summary>
+    /// <param name="script"></param>
+    public DialogSetUpData Register(MessageScript script)
     {
         list.Add(script);
+        return setUpData;
     }
 
     public void PlayerInput()
@@ -40,5 +52,14 @@ public class DialogSystem : MonoBehaviour {
     private void ResetDialoge()
     {
         currentMessage = 0;
+    }
+}
+
+public class DialogSetUpData
+{
+    public Font _font;
+    public DialogSetUpData(Font font)
+    {
+        _font = font;
     }
 }
