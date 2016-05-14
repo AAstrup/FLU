@@ -9,9 +9,23 @@ public class PlayerController : MonoBehaviour {
     
     Animator anim;
     bool isWalking;
+    bool isFlying;
 
+    float flyCurrentFallSpeed = 0f;
+
+    //Set in inspector
     public float JumpHeight;
     public float Speed;
+    public float flyHorizontalSpeed = 1f;
+    public float flyVerticalSpeed = 1f;
+    public float flyMaxFallSpeed = 1f;
+    public string talkButtonLetter = "q";
+    public string equipJetPackButtonLetter = "e";
+
+    //state
+    protected enum movementState { walking, flying}
+    [SerializeField]
+    protected movementState currentMovementState = movementState.walking;
 
     // Use this for initialization
     void Start () {
@@ -19,56 +33,127 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         isWalking = false;
-	
-	}
+        isFlying = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown("q"))
-            ButtonPressed();
-
-        float currentY = rb.velocity.y;
+        if (Input.GetKeyDown(talkButtonLetter))
+            TalkButtonPressed();
+        else if (Input.GetKeyDown(equipJetPackButtonLetter))
+            EquipButtonPressed();
 
         //Horizontal movement
+        if (currentMovementState == movementState.walking)
+            HorizontalWalkMovement();
+        else if (currentMovementState == movementState.flying)
+            HorizontalFlyMovement();
+        else
+            throw new System.Exception("MovementState not set!");
+        //Jump
+        if (currentMovementState == movementState.walking)
+            VerticalWalkMovement();
+        else if (currentMovementState == movementState.flying)
+            VerticalFlyMovement();
+        else
+            throw new System.Exception("MovementState not set!");
+    }
+
+    void HorizontalWalkMovement()
+    {
+        //movement
+        rb.gravityScale = 2f;
+
         float moveHorizontal = Input.GetAxis("Horizontal");
 
         if (moveHorizontal != 0)
         {
             isWalking = true;
             anim.SetBool("IsWalking", true);
-        } else
+        }
+        else
         {
             isWalking = false;
             anim.SetBool("IsWalking", false);
         }
-        
-        rb.velocity = new Vector2(moveHorizontal * Speed, currentY);
 
-        //Jump
+        rb.velocity = new Vector2(moveHorizontal * Speed, rb.velocity.y);
+        //Flip        
+        if (rb.velocity.x > 0)
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        else if (rb.velocity.x < 0)
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+    }
+
+    void HorizontalFlyMovement()
+    {
+        rb.gravityScale = 0f;
+
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        if (moveHorizontal != 0)
+        {
+            isFlying = true;
+            //anim.SetBool("IsFlying", true); Animation does not exsist yet
+
+            if (moveHorizontal > 0)
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            else if (moveHorizontal < 0)
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            isFlying = false;
+            //anim.SetBool("IsFlying", false); Animation does not exsist yet
+        }
+
+        rb.velocity = new Vector2(flyHorizontalSpeed*moveHorizontal, rb.velocity.y);
+    }
+
+    void VerticalWalkMovement()
+    {
         if (Input.GetButtonDown("Jump"))
         {
             float currentX = rb.velocity.x;
             rb.velocity = new Vector2(currentX, JumpHeight);
         }
+    }
 
-        //Flip        
-        if (rb.velocity.x > 0)
+    void VerticalFlyMovement()
+    {
+        if (Input.GetButton("Jump"))
         {
-            
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-
-            
+            rb.velocity = new Vector2(rb.velocity.x, flyVerticalSpeed);
+            flyCurrentFallSpeed = 0f;
         }
-        else if (rb.velocity.x < 0)
+        else
         {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*-1, transform.localScale.y, transform.localScale.z);
-            
+            if (flyCurrentFallSpeed < flyMaxFallSpeed)
+                flyCurrentFallSpeed += Time.deltaTime;
+            else
+                flyCurrentFallSpeed = flyMaxFallSpeed;
+            rb.velocity = new Vector2(rb.velocity.x, -flyCurrentFallSpeed);
         }
     }
 
-    void ButtonPressed()
+    void TalkButtonPressed()
     {
-        DialogSystem.instance.PlayerInput();
+        DialogSystem.instance.TalkPlayerInput();
+    }
+
+    void EquipButtonPressed()
+    {
+        if (currentMovementState == movementState.walking)
+        {
+            currentMovementState = movementState.flying;
+            CameraScript.instance.ChangeToMapView();
+        }
+        else if (currentMovementState == movementState.flying)
+        {
+            currentMovementState = movementState.walking;
+            CameraScript.instance.ChangeToLevelView(transform.position.y);
+        }
+        else
+            throw new System.Exception("Movement state not set!!");
     }
 }

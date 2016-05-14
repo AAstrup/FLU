@@ -9,7 +9,7 @@ public class MessageScript : MonoBehaviour {
     public GameObject prefab;
     TextBoxScript textBox;
     public Vector2 textBoxOffset;
-    Font _textBoxFont;
+    [SerializeField] levelYPos level;
 
     void Start()
     {
@@ -17,20 +17,21 @@ public class MessageScript : MonoBehaviour {
         gmj.transform.SetParent(GameObject.Find("GUI_Overlay").transform);
         textBox = gmj.GetComponent<TextBoxScript>();
 
-        var dialogSetUpData = DialogSystem.instance.Register(this);
-        textBox.SetUp(dialogSetUpData._font);
+        var dialogSetUpData = DialogSystem.instance.Register(this, level);
+        textBox.SetUp(dialogSetUpData);
     }
 
-    public void Activate(int currentMessage)
+    public void Appear(int currentMessage)
     {
         if (Messages.Count == 0)
             return;
         textBox.gameObject.SetActive(true);
         if (Messages[Math.Min(Messages.Count-1, currentMessage)].message.ToString() != lastMessagePrinted)
         {
-            lastMessagePrinted = Messages[Math.Min(Messages.Count-1, currentMessage)].message.ToString();
+            lastMessagePrinted = Messages[Math.Min(Messages.Count-1, currentMessage)].message.ToString().ToUpper();
             active = true;
             textBox.SetText(lastMessagePrinted);
+            textBox.transform.position = transform.position + new Vector3(textBoxOffset.x, textBoxOffset.y, 0f);
         }
     }
 
