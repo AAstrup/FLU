@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     public float flyMaxFallSpeed = 1f;
     public string talkButtonLetter = "q";
     public string equipJetPackButtonLetter = "e";
+    public float minJetPackXCoord = 0f;
 
     //state
     protected enum movementState { walking, flying}
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(talkButtonLetter))
             TalkButtonPressed();
-        else if (Input.GetKeyDown(equipJetPackButtonLetter))
+        else if (Input.GetKeyDown(equipJetPackButtonLetter) || (transform.position.x < minJetPackXCoord && currentMovementState == movementState.flying))
             EquipButtonPressed();
 
         //Horizontal movement
@@ -136,14 +137,14 @@ public class PlayerController : MonoBehaviour {
 
     void EquipButtonPressed()
     {
-        if (currentMovementState == movementState.walking)
+        if (currentMovementState == movementState.walking && transform.position.x > minJetPackXCoord)
         {
             anim.ResetTrigger("UnequipJetPack");
             anim.SetTrigger("EquipJetPack");
             currentMovementState = movementState.flying;
             CameraScript.instance.ChangeToMapView();
         }
-        else if (currentMovementState == movementState.flying)
+        else if (currentMovementState == movementState.flying || transform.position.x < minJetPackXCoord)
         {
             anim.ResetTrigger("EquipJetPack");
             anim.SetTrigger("UnequipJetPack");
