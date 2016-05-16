@@ -6553,6 +6553,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11413964, guid: 3197f25b7291d254ab2eb8c01beaf2cd, type: 2}
+      propertyPath: Messages.Array.data[0].message
+      value: 'I wonder what miracles lie behind the wall '
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3197f25b7291d254ab2eb8c01beaf2cd, type: 2}
   m_IsPrefabParent: 0
