@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerController : MonoBehaviour {
     public static PlayerController instance;
@@ -22,6 +23,11 @@ public class PlayerController : MonoBehaviour {
     public string talkButtonLetter = "q";
     public string equipJetPackButtonLetter = "e";
     public float minJetPackXCoord = 0f;
+
+    internal void Reset()
+    {
+        rb.velocity = new Vector3(0, 0, 0);
+    }
 
     //state
     protected enum movementState { walking, flying}
