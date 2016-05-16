@@ -18,6 +18,8 @@ public class CameraScript : MonoBehaviour
     List<KeyValuePair<float, levelYPos>> LineYPos = new List<KeyValuePair<float, levelYPos>>();
     levelYPos lastLevelPlayerWasAt = levelYPos.Bot;
 
+    public levelYPos GetLastPlayerLevelPosition() { return lastLevelPlayerWasAt; }
+
     void Start()
     {
         cam = gameObject.GetComponent<Camera>();

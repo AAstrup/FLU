@@ -13,17 +13,18 @@ public class DialogSystem : MonoBehaviour {
         for (int i = 0; i < inspectorListToAdd.Count; i++)
         {
             setUpData.Add(inspectorListToAdd[i].level, inspectorListToAdd[i]);
+            inspectorListToAdd[i].SetTalkDistance(dialogeRange);
         }
     }
 
-    int currentMessage = -1;//-1 as you have to press in order to make the first bubble appear
-    List<MessageScript> list = new List<MessageScript>();
-    Dictionary<levelYPos, DialogSetUpData> setUpData = new Dictionary<levelYPos, DialogSetUpData>();
+    Dictionary<levelYPos, DialogSetUpData> setUpData = new Dictionary<levelYPos, DialogSetUpData>();//Set in inspector
+    Dictionary<levelYPos, List<MessageScript>> messageScripts = new Dictionary<levelYPos, List<MessageScript>>();//whats checked in runtime
     //Set in inspector
-    public Font textBoxFont;
     public float dialogeRange = 1f;
     [SerializeField] protected
     List<DialogSetUpData> inspectorListToAdd;
+    [SerializeField]
+    protected string talkButtonLetter;
 
     /// <summary>
     /// Register a script, and returns nessary data to set it up
@@ -31,41 +32,30 @@ public class DialogSystem : MonoBehaviour {
     /// <param name="script"></param>
     public DialogSetUpData Register(MessageScript script, levelYPos level)
     {
-        list.Add(script);
+        if(!messageScripts.ContainsKey(level))
+            messageScripts.Add(level, new List<MessageScript>());
+        messageScripts[level].Add(script);
         return setUpData[level];
-    }
-
-    public void TalkPlayerInput()
-    {
-        currentMessage++;
     }
 
     void Update()
     {
-        bool dialogActive = false;
-        foreach (var msg in list)
+        foreach (var msg in messageScripts[CameraScript.instance.GetLastPlayerLevelPosition()])
         {
-            if (Vector2.Distance(msg.transform.position, PlayerController.instance.transform.position) < dialogeRange)
+            if ( dialogeRange >= Mathf.Abs(msg.transform.position.x - PlayerController.instance.transform.position.x))
             {
-                msg.Appear(currentMessage);
-                dialogActive = true;
+                msg.Appear();
+                if (Input.GetKeyDown(talkButtonLetter))
+                    msg.Talk();
             }
-            else
-                msg.DeActivate();
         }
-        if (!dialogActive)
-            ResetDialoge();
-    }
-
-    private void ResetDialoge()
-    {
-        currentMessage = -1;
     }
 }
 
 [System.Serializable]
 public class DialogSetUpData
 {
+    private float _talkDistance;
     public levelYPos level;
     public Font _font;
     public Color _fontColor;
@@ -77,5 +67,14 @@ public class DialogSetUpData
         _textBoxSprite = textBoxSprite;
         _fontColor = fontColor;
         _textBoxTriggerSprite = textBoxTriggerSprite;
+    }
+
+    public float GetTalkDistance()
+    {
+        return _talkDistance;
+    }
+    public void SetTalkDistance(float talkDistance)
+    {
+        _talkDistance = talkDistance;
     }
 }

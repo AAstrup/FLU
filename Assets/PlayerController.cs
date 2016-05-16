@@ -39,10 +39,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (Input.GetKeyDown(talkButtonLetter))
-            TalkButtonPressed();
-        else if (Input.GetKeyDown(equipJetPackButtonLetter) || (transform.position.x < minJetPackXCoord && currentMovementState == movementState.flying))
+        if (Input.GetKeyDown(equipJetPackButtonLetter) || (transform.position.x < minJetPackXCoord && currentMovementState == movementState.flying))
             EquipButtonPressed();
 
         //Horizontal movement
@@ -128,11 +125,6 @@ public class PlayerController : MonoBehaviour {
                 flyCurrentFallSpeed = flyMaxFallSpeed;
             rb.velocity = new Vector2(rb.velocity.x, -flyCurrentFallSpeed);
         }
-    }
-
-    void TalkButtonPressed()
-    {
-        DialogSystem.instance.TalkPlayerInput();
     }
 
     void EquipButtonPressed()

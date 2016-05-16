@@ -13,7 +13,6 @@ public class BackgroundScript : MonoBehaviour {
         {
             backgrounds.Add(gameObject.transform.GetChild(i));
         }
-        print("backgrounds.Count " + backgrounds.Count);
 
         for (int b = 0; b < backgrounds.Count; b++)
         {

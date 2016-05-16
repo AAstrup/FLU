@@ -12,10 +12,7 @@ public class ParticleSystemAdmin : MonoBehaviour {
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             var script = gameObject.transform.GetChild(i).GetComponent<ParticleSystemController>();
-            if (script == null)
-                print("IS NULL!");
             dict.Add(script.type, script);
-            print("Type " + script.type.ToString() + " added" );
         }
     }
 

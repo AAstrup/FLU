@@ -3,10 +3,10 @@ using System.Collections;
 
 public class ShadowManager : MonoBehaviour {
 
-    SpriteRenderer TopShadow;
+    public SpriteRenderer TopShadow;
     GameObject TopLine;
     bool topDicovered;
-    SpriteRenderer MidShadow;
+    public SpriteRenderer MidShadow;
     GameObject MidLine;
     bool midDicovered;
     GameObject Player;
@@ -15,9 +15,9 @@ public class ShadowManager : MonoBehaviour {
     {
         Player = GameObject.Find("Player");
         MidLine = GameObject.Find("MidLine");
-        MidShadow = GameObject.Find("MidShadow").GetComponent<SpriteRenderer>();
         TopLine = GameObject.Find("TopLine");
-        TopShadow = GameObject.Find("TopShadow").GetComponent<SpriteRenderer>();
+        TopShadow.gameObject.SetActive(true);
+        MidShadow.gameObject.SetActive(true);
     }
 
     void Update()

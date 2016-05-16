@@ -12,9 +12,6 @@ public class ParticleSystemController : MonoBehaviour {
     }
     public void Emit(int amount)
     {
-        print("AMOUTN " + amount);
-        if (pSystem == null)
-            print("System is null");
         pSystem.Emit(1);
     }
 }
