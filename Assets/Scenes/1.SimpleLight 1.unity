@@ -1136,8 +1136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd3453d746c57846bd72b34f7b23cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBoxOffset: {x: -0.5, y: 0.7}
-  textBoxTriggerOffset: {x: -0.5, y: 0.7}
+  textBoxOffset: {x: 0.5, y: 0.7}
+  textBoxTriggerOffset: {x: 0.5, y: 0.7}
   level: 2
   Messages:
   - message: Blessed are the kind, for they will feel the warm gaze of the Sun God.
@@ -3505,8 +3505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd3453d746c57846bd72b34f7b23cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBoxOffset: {x: 0, y: 0}
-  textBoxTriggerOffset: {x: 0, y: 0}
+  textBoxOffset: {x: 0.5, y: 0.7}
+  textBoxTriggerOffset: {x: 0.5, y: 0.7}
   level: 2
   Messages:
   - message: "I wish they would sacrifice me to the Sun God. To lay in rest in his
@@ -4625,7 +4625,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1984930431
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 758a49f0143adaa41844132e04ed243a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6575,8 +6575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd3453d746c57846bd72b34f7b23cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBoxOffset: {x: 0, y: 0}
-  textBoxTriggerOffset: {x: 0, y: 0}
+  textBoxOffset: {x: 0.5, y: 0.7}
+  textBoxTriggerOffset: {x: 0.5, y: 0.7}
   level: 2
   Messages:
   - message: "Does the Sun God watch everything you do? Isn\u2019t that a bit\u2026
