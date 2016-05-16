@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 432518}
   - 95: {fileID: 9540858}
-  - 61: {fileID: 6190862}
   - 212: {fileID: 21251272}
+  - 114: {fileID: 11413964}
   m_Layer: 0
   m_Name: Scientist
   m_TagString: Untagged
@@ -25,25 +25,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.74, y: 0.83, z: 0}
-  m_LocalScale: {x: 0.11, y: 0.11, z: 0.11}
+  m_LocalPosition: {x: -7, y: -4.742, z: 0}
+  m_LocalScale: {x: 0.059461895, y: 0.059461895, z: 0.059461895}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6190862
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159652}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 7.25, y: 11.06}
 --- !u!95 &9540858
 Animator:
   serializedVersion: 3
@@ -61,6 +47,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11413964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd3453d746c57846bd72b34f7b23cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBoxOffset: {x: 0.5, y: 0.7}
+  textBoxTriggerOffset: {x: 0.5, y: 0.7}
+  level: 0
+  Messages:
+  - message: 'I wonder what miracles lie behind wall '
+  - message: I bet it's so better than the right edge
+  - message: Of course we will find a second sun!
+  - message: It is a fact! Don't you see I have data here?
 --- !u!212 &21251272
 SpriteRenderer:
   m_ObjectHideFlags: 1
