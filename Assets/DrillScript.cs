@@ -18,6 +18,8 @@ public class DrillScript : MonoBehaviour {
 
     public float driveDistance = 1f;
 
+    public int particleAmounts = 10;
+
     bool hasDrilled = false;
 
 	// Update is called once per frame
@@ -93,6 +95,7 @@ public class DrillScript : MonoBehaviour {
 
     void DrillShake()
     {
+        ParticleSystemAdmin.instance.Emit(particleAmounts,particleSystemType.LeftWall);
         ScreenShake.instance.Shake();
     }
 
