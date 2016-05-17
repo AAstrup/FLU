@@ -40,6 +40,8 @@ public class DialogSystem : MonoBehaviour {
 
     void Update()
     {
+        if (PlayerController.instance.IsFlying())
+            return;
         foreach (var msg in messageScripts[CameraScript.instance.GetLastPlayerLevelPosition()])
         {
             if ( dialogeRange >= Mathf.Abs(msg.transform.position.x - PlayerController.instance.transform.position.x))

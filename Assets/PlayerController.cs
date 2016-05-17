@@ -34,6 +34,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     protected movementState currentMovementState = movementState.walking;
 
+    public bool IsFlying()
+    {
+        return isFlying;
+    } 
     // Use this for initialization
     void Start () {
 
@@ -137,6 +141,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (currentMovementState == movementState.walking && transform.position.x > minJetPackXCoord)
         {
+            isFlying = true;
             anim.ResetTrigger("UnequipJetPack");
             anim.SetTrigger("EquipJetPack");
             currentMovementState = movementState.flying;
@@ -144,6 +149,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (currentMovementState == movementState.flying || transform.position.x < minJetPackXCoord)
         {
+            isFlying = false;
             anim.ResetTrigger("EquipJetPack");
             anim.SetTrigger("UnequipJetPack");
             currentMovementState = movementState.walking;
