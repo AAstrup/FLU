@@ -1448,7 +1448,7 @@ MonoBehaviour:
   flyMaxFallSpeed: 1
   talkButtonLetter: q
   equipJetPackButtonLetter: e
-  minJetPackXCoord: 0
+  minJetPackXCoord: -1
   currentMovementState: 0
 --- !u!50 &759801242
 Rigidbody2D:
