@@ -30,9 +30,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     //state
-    protected enum movementState { walking, flying}
+    public enum movementState { walking, flying}
     [SerializeField]
-    protected movementState currentMovementState = movementState.walking;
+    public movementState currentMovementState = movementState.walking;
 
     public bool IsFlying()
     {
@@ -124,6 +124,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetButton("Jump"))
         {
+            ControlsHelper.instance.DeactivateFlyControls();
             rb.velocity = new Vector2(rb.velocity.x, flyVerticalSpeed);
             flyCurrentFallSpeed = 0f;
         }
@@ -144,6 +145,8 @@ public class PlayerController : MonoBehaviour {
             isFlying = true;
             anim.ResetTrigger("UnequipJetPack");
             anim.SetTrigger("EquipJetPack");
+            ControlsHelper.instance.DeactivateEquipControls();
+            ControlsHelper.instance.ActivateFlyControls();
             currentMovementState = movementState.flying;
             CameraScript.instance.ChangeToMapView();
         }

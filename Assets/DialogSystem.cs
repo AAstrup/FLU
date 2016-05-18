@@ -46,9 +46,13 @@ public class DialogSystem : MonoBehaviour {
         {
             if ( dialogeRange >= Mathf.Abs(msg.transform.position.x - PlayerController.instance.transform.position.x))
             {
+                ControlsHelper.instance.ActivateTalkControls();
                 msg.Appear();
                 if (Input.GetKeyDown(talkButtonLetter))
+                {
                     msg.Talk();
+                    ControlsHelper.instance.DeactivateTalkControls();
+                }
             }
         }
     }
